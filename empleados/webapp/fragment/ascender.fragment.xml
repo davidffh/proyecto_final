@@ -1,0 +1,26 @@
+<core:FragmentDefinition 
+    xmlns="sap.m"
+    xmlns:l="sap.ui.layout"
+    xmlns:f="sap.ui.layout.form"
+    xmlns:core="sap.ui.core">
+
+    <Dialog title="{i18n>nuevoAscenso}">
+        <f:SimpleForm>
+            <f:content>
+
+                <Label text="{i18n>aSalario}"/>
+                <Input value="{mAscenso>/sueldo}"/>
+
+                <Label text="{i18n>aFecha}"/>
+                <DatePicker dateValue="{mAscenso>/fecha}"/>
+
+                <Label text="{i18n>comentario}"/>
+                <TextArea value="{mAscenso>/comentario}"/>
+
+            </f:content>
+        </f:SimpleForm>
+
+        <Button text="{i18n>aAceptar}" press="fAscenso"/>
+        <Button text="{i18n>aCancelar}" press="fSalir"/>
+    </Dialog>
+</core:FragmentDefinition>

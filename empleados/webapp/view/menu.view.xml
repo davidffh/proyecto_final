@@ -1,0 +1,36 @@
+<mvc:View controllerName="dffh.empleados.controller.menu"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns="sap.m"
+    xmlns:core="sap.ui.core" displayBlock="true">
+
+
+    <Page title="{i18n>title}">
+        <Panel expandable="true" headerText="Empleados" width="auto" class="sapUiResponsiveMargin">
+            <content>
+                <GenericTile class="sapUiTinyMarginBegin sapUiTinyMarginTop tileLayout" header="Crear empleado" press="crearEmpleado">
+                    <TileContent>
+                        <ImageContent src="sap-icon://add-employee" />
+                    </TileContent>
+                </GenericTile>
+
+                <GenericTile class="sapUiTinyMarginBegin sapUiTinyMarginTop tileLayout" header="Ver empleados" press="mostrarEmpleado">
+                    <TileContent>
+                        <ImageContent src="sap-icon://employee-lookup" />
+                    </TileContent>
+                </GenericTile>
+            </content>
+        </Panel>
+
+        <Panel expandable="true" headerText="Pedidos" width="auto" class="sapUiResponsiveMargin">
+            <content>
+                <GenericTile class="sapUiTinyMarginBegin sapUiTinyMarginTop tileLayout" header="Firmar pedido" press="irAUrl">
+                    <TileContent>
+                        <ImageContent src="sap-icon://signature" />
+                    </TileContent>
+                </GenericTile>
+            </content>
+        </Panel>
+    </Page>
+
+
+</mvc:View>

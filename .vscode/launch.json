@@ -1,0 +1,25 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Run empleados-empleados",
+      "type": "node",
+      "request": "launch",
+      "program": "${workspaceFolder}/empleados-approuter/node_modules/@sap/html5-repo-mock/index.js",
+      "args": [
+        "--standalone",
+        "/dffhempleados/index.html",
+        "--ui5",
+        "{\"version\":\".\"}"
+      ],
+      "cwd": "${workspaceFolder}/empleados",
+      "env": {
+        "PORT": "6004",
+        "MOCK_LOOKUP_DIRS": "[\"webapp\"]",
+        "run.config": "{\"handlerId\":\"ui5_run_config_handler_id\",\"runnableId\":\"/home/user/projects/empleados/empleados\"}"
+      },
+      "envFile": "${workspaceFolder}/empleados/.env1",
+      "preLaunchTask": "Build empleados"
+    }
+  ]
+}

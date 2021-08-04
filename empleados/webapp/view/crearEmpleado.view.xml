@@ -1,0 +1,148 @@
+<mvc:View controllerName="dffh.empleados.controller.crearEmpleado"
+    xmlns:form="sap.ui.layout.form"
+    xmlns:core="sap.ui.core"
+    xmlns:u="sap.ui.unified"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns="sap.m" displayBlock="true">
+
+    <NavContainer id="wizardNavContainer">
+        <pages>
+            <Page id="wizardContentPage" title="{18n>crearEmpleado}">
+                <content>
+                    <Wizard id="wizardEmployee" class="sapUiResponsivePadding--header sapUiResponsivePadding--content" showNextButton="true" complete="wizardCompletedHandler">
+
+                        <WizardStep id="employeeType" title="{i18n>tipoEmpleado}" validated="false">
+                            <MessageStrip class="sapUiSmallMarginBottom" text="{i18n>tipoEmpleadoDet}" showIcon="true"/>
+
+                            <HBox alignItems="Center" justifyContent="Center" width="100%">
+
+                                <Button id="bInterno" text="{i18n>interno}" press="irAPaso2" class="sapUiSmallMarginEnd"/>
+                                <Button id="bAutonomo" text="{i18n>autonomo}" press="irAPaso2" class="sapUiSmallMarginEnd"/>
+                                <Button id="bGerente" text="{i18n>gerente}" press="irAPaso2"/>
+
+                            </HBox>
+                        </WizardStep>
+
+                        <WizardStep id="employeeData" title="{i18n>datosEmpleado}" validated="false">
+                            <MessageStrip class="sapUiSmallMarginBottom" text="{i18n>datosEmpleadoDet}" showIcon="true"/>
+                            <form:SimpleForm editable="true">
+
+                                <Label text="{i18n>nombre}" required="true"/>
+                                <Input placeholder="{i18n>ingreseNombre}" change="validaEmp" value="{mEmpleado>/nombre}" valueState="{mEmpleado>/nombreState}"/>
+                                <Label text="{i18n>apellido}" required="true"/>
+                                <Input placeholder="{i18n>ingreseApellido}" change="validaEmp" value="{mEmpleado>/apellido}" valueState="{mEmpleado>/apellidoState}"/>
+
+                                <Label text="{i18n>dni}" required="true" visible="{mEmpleado>/dniOnOff}"/>
+                                <Input value="{mEmpleado>/dni}" placeholder="{i18n>ingreseDni}" visible="{mEmpleado>/dniOnOff}" change="validarDNI" valueState="{mEmpleado>/dniState}"/>
+
+                                <Label text="{i18n>cif}" required="true" visible="{mEmpleado>/cifOnOff}"/>
+                                <Input value="{mEmpleado>/cif}" placeholder="{i18n>ingreseCif}" visible="{mEmpleado>/cifOnOff}" change="validaEmp"/>
+
+                                <Label text="{i18n>salarioBruto}" visible="{mEmpleado>/sbaOnOff}"/>
+                                <Slider enableTickmarks="true" value="{mEmpleado>/sueldo}" min="{mEmpleado>/sbaMin}" max="{mEmpleado>/sbaMax}" class="sapUiMediumMarginBottom" width="100%" visible="{mEmpleado>/sbaOnOff}"/>
+
+                                <Label text="{i18n>precioDiario}" visible="{mEmpleado>/pdOnOff}"/>
+                                <Slider enableTickmarks="true" value="{mEmpleado>/sueldo}" min="{mEmpleado>/sdMin}" max="{mEmpleado>/sdMax}" class="sapUiMediumMarginBottom" width="100%" visible="{mEmpleado>/pdOnOff}"/>
+
+                                <Label text="{i18n>fecha}" required="true"/>
+                                <DatePicker id="DP1" dateValue="{mEmpleado>/fecha}" placeholder="{i18n>ingreseFecha}" change="validaEmp" class="sapUiSmallMarginBottom" valueState="{mEmpleado>/fechaState}"/>
+                            </form:SimpleForm>
+                        </WizardStep>
+
+                        <WizardStep id="employeeInformation" title="{i18n>infoAdicional}" validated="true">
+                            <MessageStrip class="sapUiSmallMarginBottom" text="{i18n>infoAdicionalDet}" showIcon="true"/>
+
+                            <Label text="{i18n>comentario}"/>
+                            <TextArea value="{mEmpleado>/comentario}" maxLength="40" width="100%"/>
+
+                            <UploadCollection id="uploadCollection" 
+                                              maximumFilenameLength="55" 
+                                              maximumFileSize="10" 
+                                              multiple="true" 
+                                              sameFilenameAllowed="true" 
+                                              instantUpload="false" 
+                                              uploadUrl="/sap/opu/odata/sap/ZEMPLOYEES_SRV/Attachments" 
+                                              change="onFileChange"                                               
+                                              beforeUploadStarts="onFileBeforeUpload"/>
+
+                        </WizardStep>
+
+                    </Wizard>
+                </content>
+
+                <footer>
+                    <OverflowToolbar>
+                        <ToolbarSpacer/>
+                        <Button text="{i18n>rCancelar}" press="wizardCancel"/>
+                    </OverflowToolbar>
+                </footer>
+            </Page>
+
+            <Page id="wizardReviewPage" showHeader="true" title="{i18n>rCrearEmpleado}">
+                <content>
+                    <form:SimpleForm title="{i18n>rTipoEmpleado}" minWidth="1024" editable="false" layout="ResponsiveGridLayout">
+                        <form:content>
+                            <Label text="{i18n>rTipo}"/>
+                            <Text id="idTipo" text="{mEmpleado>/puesto}"/>
+                            <Link press="editStepOne" text="{i18n>rEditar}" />
+                        </form:content>
+                    </form:SimpleForm>
+
+                    <form:SimpleForm title="{i18n>rDatosEmpleado}" minWidth="1024" editable="false" layout="ResponsiveGridLayout">
+                        <form:content>
+                            <Label text="{i18n>nombre}"/>
+                            <Text id="idNombre" text="{mEmpleado>/nombre}"/>
+                            <Label text="{i18n>apellido}"/>
+                            <Text id="idApellido" text="{mEmpleado>/apellido}"/>
+                            
+                            <Label text="{i18n>dni}" visible="{mEmpleado>/dniOnOff}"/>
+                            <Text text="{mEmpleado>/dni}" visible="{mEmpleado>/dniOnOff}"/>
+                            <Label text="{i18n>cif}" visible="{mEmpleado>/cifOnOff}"/>
+                            <Text text="{mEmpleado>/cif}" visible="{mEmpleado>/cifOnOff}"/>
+
+                            <Label text="{i18n>salarioBruto}" visible="{mEmpleado>/sbaOnOff}"/>
+                            <Text text="{mEmpleado>/sueldo}" visible="{mEmpleado>/sbaOnOff}"/>
+
+                            <Label text="{i18n>precioDiario}" visible="{mEmpleado>/pdOnOff}"/>
+                            <Text text="{mEmpleado>/sueldo}" visible="{mEmpleado>/pdOnOff}"/>
+
+                            <Label text="{i18n>fecha}"/>
+                            <Text id="idFecha" text="{path: 'mEmpleado>/fecha',
+				                            type: 'sap.ui.model.type.Date',
+				                            formatOptions: {
+					                        style: 'long'}
+			                                }"/>
+                            <Link press="editStepTwo" text="{i18n>rEditar}" />
+                        </form:content>
+                    </form:SimpleForm>
+
+                    <form:SimpleForm title="{i18n>rInfoAdicional}" minWidth="1024" editable="false" layout="ResponsiveGridLayout">
+                        <form:content>
+                            <Label text="{i18n>comentario}"/>
+                            <Text id="idComentario" text="{mEmpleado>/comentario}"/>
+                            <Label text=""/>
+                                <List id="listaArchivos" items="{/data}">
+                                    <items>
+                                        <StandardListItem
+                                            title="{archivo}" />
+                                    </items>
+                                </List>
+                            <Link press="editStepThree" text="{i18n>rEditar}" />
+                        </form:content>
+                    </form:SimpleForm>
+
+                </content>
+                <footer>
+                    <Bar>
+                        <contentRight>
+                            <Button text="{i18n>rGuardar}" press="onGuardarEmpleado"/>
+                            <Button text="{i18n>rCancelar}" press="wizardCancel"/>
+                        </contentRight>
+                    </Bar>
+                </footer>
+            </Page>
+
+        </pages>
+    </NavContainer>
+
+</mvc:View>
